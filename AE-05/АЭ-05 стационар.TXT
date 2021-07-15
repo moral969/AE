@@ -1,0 +1,313 @@
+#include <windows.h>
+#include <Winuser.h>
+#include <iostream>
+#include <locale>
+
+HWND hChildWnd1;
+using namespace std; 
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+ 
+int WINAPI WinMain(HINSTANCE hInstance,
+HINSTANCE hPrevInstance,
+LPTSTR lpCmdLine,
+int nCmdShow)
+{
+char cname[]="Class";
+char title[]="AE-05 General test";
+MSG msg;
+ 
+setlocale(LC_ALL, "Russian");
+//структура для регистрации класса окон
+WNDCLASS wc;
+wc.style = 0;
+wc.lpfnWndProc = (WNDPROC)WndProc;
+wc.cbClsExtra = 0;
+wc.cbWndExtra = 0;
+wc.hInstance = hInstance;
+wc.hIcon = LoadIcon(hInstance, (LPCTSTR)IDI_APPLICATION);
+wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+wc.hbrBackground = (HBRUSH)(COLOR_WINDOW+1);
+wc.lpszMenuName = 0;
+wc.lpszClassName = cname;
+//регестрируем класс
+if(!RegisterClass(&wc)) return 0;
+//создать окно
+HWND hWnd = CreateWindow(cname, title, WS_OVERLAPPEDWINDOW,
+298, 323, 300, 300, NULL, NULL, hInstance, NULL);
+//проверим создалось ли окно
+if(!hWnd)return 0;
+//Создаем кнопку
+HWND hWnd_button = CreateWindow("button", "PRESS ME", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+40, 40, 200, 200, hWnd, (HMENU)10000, hInstance, NULL);
+//показать окно
+ShowWindow(hWnd, nCmdShow);
+//обновить содержимое окна
+UpdateWindow(hWnd);
+ 
+// Координаты консольного окна
+COORD crd = {10, 10};
+SMALL_RECT src = {0, 0, crd.X, crd.Y};
+SetConsoleScreenBufferSize (GetStdHandle (STD_OUTPUT_HANDLE), crd);
+SetConsoleWindowInfo (GetStdHandle (STD_OUTPUT_HANDLE), TRUE, &src);
+
+
+//цикл обработки сообщений
+while(GetMessage(&msg, NULL,0 ,0))
+{
+TranslateMessage(&msg);
+DispatchMessage(&msg);
+}
+return 0;
+};
+ 
+ int i = 0;
+//процедура окна
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message,WPARAM wParam, LPARAM lParam)
+{
+switch(message)
+{
+
+case WM_CREATE:
+break;
+case WM_DESTROY:
+PostQuitMessage(0);
+break;
+case WM_PAINT:
+break;
+default:
+return DefWindowProc(hWnd, message, wParam, lParam);
+case WM_COMMAND:
+        switch (wParam)
+        {
+        case 10000:
+                                            
+         Sleep(1000);              
+         SetCursorPos(650, 410);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши1
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+       
+                    Sleep(1000);
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши2
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+        
+                     Sleep(54000);
+         SetCursorPos(854, 408); 
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши3
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+        
+            Sleep(2000);
+         SetCursorPos(1034, 540);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши4
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+       
+                     Sleep(54000);
+         SetCursorPos(1088, 406);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши5
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+             Sleep(2000);
+         SetCursorPos(1034, 540);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши6
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+        
+         //test3.3.2
+        
+
+              Sleep(53000);              
+         SetCursorPos(650, 440);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши7
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+       
+              Sleep(2000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши8
+        
+         // test 3.3.3
+              Sleep(16000);              
+         SetCursorPos(650, 470);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши9
+            
+            Sleep(2000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши10
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+               Sleep(44000);              
+         SetCursorPos(1034, 540);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши11
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+         //test 3.3.4
+               Sleep(44000);              
+         SetCursorPos(650, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши12
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+                     Sleep(2000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши13
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+               Sleep(54000);              
+         SetCursorPos(1034, 540);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши14
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+         //test 3.3.7
+         
+                     Sleep(54000);              
+         SetCursorPos(650, 600);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши15
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+               Sleep(2000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши16
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+         //test 3.3.8
+         
+                              Sleep(53000);              
+         SetCursorPos(650, 630);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши17
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+                        Sleep(2000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши18
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+                  //test 3.3.9
+         
+                              Sleep(7000);              
+         SetCursorPos(655, 666);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши17
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+                        Sleep(2000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши18
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+        
+         //test 3.3.10
+                        Sleep(5000);              
+         SetCursorPos(650, 700);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши19
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+            Sleep(4000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши20
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+               Sleep(54000);              
+         SetCursorPos(1034, 540);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши21
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+           
+            Sleep(6000);              
+         SetCursorPos(1034, 590);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши22
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+         //test 3.3.11
+         
+            Sleep(10000);              
+         SetCursorPos(650, 730);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши23
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+               Sleep(2000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши24
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+         //test 3.3.12
+            
+             Sleep(18000);              
+         SetCursorPos(650, 760);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши25
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+               Sleep(2000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши26
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+         //test 3.3.13
+                     Sleep(10000);              
+         SetCursorPos(650, 790);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши27
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+            Sleep(2000);              
+         SetCursorPos(1034, 500);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши28
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+               Sleep(5000);              
+         SetCursorPos(1034, 540);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши29
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+           
+            Sleep(5000);              
+         SetCursorPos(1034, 590);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши30
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+                     
+            Sleep(5000);              
+         SetCursorPos(1034, 640);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши31
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+               Sleep(5000);              
+         SetCursorPos(1034, 690);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши32
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+           
+            Sleep(5000);              
+         SetCursorPos(1034, 740);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши33
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+                     Sleep(5000);              
+         SetCursorPos(1034, 780);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши34
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+         // save protocol 
+                     Sleep(5000);              
+         SetCursorPos(1200, 830);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши35
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+                              Sleep(3000);              
+         SetCursorPos(1200, 620);
+         mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши36
+         mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+        
+         // reset protocol 
+                              Sleep(1000);              
+      //   SetCursorPos(1060, 835);
+        // mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0); // нажали левую кнопку мыши
+        // mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0); // отпустили левую кнопку мыши
+         
+
+
+
+
+                              return 0;
+
+                
+            break;
+        }
+        break;
+ 
+        // Обработка сообщения по умолчанию
+    }
+
+    return 0;
+} 
